@@ -1,0 +1,74 @@
+                    /get_list_suggested_friends
+                            token index count
+                    /set_request_friend
+                                user_id
+                                token
+
+/get_requested_friends
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết.
+    input: 
+        token
+        index:
+        count:
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác hợp lệ.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+   //middle xu li 
+    3. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác nhưng
+    không có kết quả nào được trả về.
+    Kết quả mong đợi: Hiển thị không tìm thấy kết quả nào.
+    // code: ok FE xu li
+    4. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    người dùng đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    //middle xu li 
+    5. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có các thông số username hoặc id có giá trị không chuẩn.
+    Kết quả mong đợi: ứng dụng phải ẩn đi các kết quả không hợp lệ trước khi
+    hiện lên.
+    // FE xu li 
+    6. Người dùng truyền đúng các tham số nhưng các lời yêu cầu trả về không
+    theo đúng thứ tự thời gian
+    Kết quả mong đợi: ứng dụng sẽ cố gắng sắp xếp lại các kết quả theo đúng
+    thứ tự.
+    // FE xu li 
+    7. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có số bạn chung ở một số yêu cầu kết bạn.
+    Kết quả mong đợi: ứng dụng phải hiển thị số bạn chung.
+    output nhu testcase 1
+    code: 1000
+    message: OK
+    data:
+        {
+            request:[{
+                _id: 
+                author:
+                created:
+                same_friend
+            }]
+            total
+        }
+    
+    8. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có số bạn chung KHÔNG CHUẨN ở một số yêu cầu kết bạn.
+    Kết quả mong đợi: ứng dụng sẽ không hiển thị số bạn chung ở các yêu cầu
+    này.
+    // FE xu li 
+    9. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, và kết
+    quả trả về có tổng số total lớn hơn tổng số request kết bạn đã được server trả về.
+    Kết quả mong đợi: ứng dụng sẽ hiển thị tổng số total kết bạn.
+    // FE xu li 
+    10. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có tổng số total kết bạn bé hơn tổng số request trả về bởi các lần
+    truy vấn.
+    Kết quả mong đợi: ứng dụng sẽ hiển thị tổng số total là bằng tổng số request
+    kết bạn đã nhận được sau các lần truy vấn.
+    // FE xu li 
+    11. Hệ thống cho phép chức năng pull down và pull up để làm mới và thêm mới
+    vào danh sách các yêu cầu kết bạn.
+    // FE xu li 
+    12. Hệ thống cho phép thực hiện việc cache dữ liệu ở tab này
+    // FE xu li

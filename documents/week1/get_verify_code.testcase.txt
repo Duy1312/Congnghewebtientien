@@ -1,0 +1,61 @@
+/get_verify_code
+POST
+1. Người dùng gọi request này lại khi mà chưa nhận được hoặc
+làm mất mã xác thực.
+Kết quả mong đợi: 1000 | OK (Thông báo thành công) và mã
+xác thực cũ sẽ vẫn được tồn tại
+
+input:
+    phonenumber: 0945524200
+output:
+    "code": "1000",
+    "message": "OK",
+    "data": {
+        "verifycode": ""
+    }
+
+    
+2. Người dùng liên tục gửi request này lại trong thời gian quá
+ngắn.
+Kết quả mong đợi: Nếu dưới 120 giây sau khi đã gửi request
+này thì ứng dụng sẽ làm mờ nút gửi mã xác thực. Nếu một lý do
+nào đó request này đến được server thì sẽ có thông báo trả về
+mã 1010 hoặc 1009
+
+input:
+    phonenumber: 0945524200
+output:
+    "code": "1009",
+    "message": "Not access"
+
+3. Người dùng truyền tham số với số điện thoại đã được hoàn tất
+quy trình đăng ký (tức việc xác thực cũng đã xong).
+Kết quả mong đợi: mã lỗi 1010
+
+input:
+    phonenumber: 0945524200
+OUTPUT:
+{
+    "code": "1010",
+    "message": "Action has been done previously by this user"
+}
+
+4. Người dùng truyền tham số với số điện thoại chưa được đăng ký.
+Kết quả mong đợi: trả về mã lỗi 1004 hoặc 9995
+
+input:
+    phonenumber: 0945524200
+OUTPUT:
+    "code": "1004",
+    "message": "Parameter value is invalid"
+    
+5. Người dùng truyền tham số với số điện thoại sai định dạng.
+Kết quả mong đợi: Ứng dụng sẽ phải kiểm tra từ trước để thông
+báo lỗi không đúng định dạng. Nếu như được gửi lên server sẽ được
+nhận về mã 1004
+
+input:
+    phonenumber: 0945524200
+OUTPUT:
+    "code": "1004",
+    "message": "Parameter value is invalid"

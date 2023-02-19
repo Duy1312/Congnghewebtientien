@@ -1,0 +1,64 @@
+/delete_post
+    1. Người dùng truyền đúng mã phiên đăng nhập, id bài viết
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết.
+    input: 
+        token: xxx
+        id: (id bai viet)
+    output:
+        code: 1000
+        message: OK
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    *********input output nhu test case 3 change_info_after_signup
+    3. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng bài viết đã bị khóa
+    (do vi phạm tiêu chuẩn cộng đồng hoặc bị hạn chế tại quốc gia)
+    Kết quả mong đợi: mã lỗi 9992 và bài viết bị biến mất trong trang hiện tại. Nếu là
+    trang chủ thì ứng dụng sẽ xóa bài viết đó. Nếu là trang cá nhân thì có thể xóa bài viết
+    đó hoặc làm mới lại trang cá nhân (tùy thuộc tình huống).
+    input: 
+        token: xxx
+        id: (bi khoa)
+    output: 
+        code: 9992
+        message: Post id not existed
+    4. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng người dùng đã bị
+    khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    input: 
+        token: xxx
+        id: xxx
+    output1: 
+        code: 1004
+        message: "Parameter value is invalid"
+    output2: 
+        code: 9995
+        message: "User is not validated"
+    5. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng hệ thống không thể
+    xóa bài viết đi được
+    Kết quả mong đợi: mã lỗi báo hệ thống không thể xóa được do lỗi DB. Nhưng ở phía
+    ứng dụng, cần hiện thông báo khác, chẳng hạn “Không thể kết nối Internet”
+    input: 
+        token: xxx
+        id: xxx
+    output:
+        code: 1005
+        message: "Unknown error"
+    6. Người dùng truyền đúng mã phiên đăng nhập, nhưng sai id bài viết.
+    Kết quả mong đợi: mã lỗi trả về báo giá trị tham số trả về bị sai. Nhưng tất nhiên ứng
+    dụng sẽ phải có thông báo khác đi 
+    input: 
+        token: xxx
+        id: xx(id sai)
+    output: 
+        code: 1004
+        message: "Parameter value is invalid"
+    7. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng đang kết nối thì
+    mạng Internet bị ngắt
+    Kết quả mong đợi: ứng dụng cần hiện thông báo “Không thể kết nối Internet” càng
+    sớm càng tốt
+    FE xử lí
+    

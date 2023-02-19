@@ -1,0 +1,66 @@
+/add_post
+    1. Người dùng truyền đúng mã phiên đăng nhập, file đúng định dạng (nếu có và nếu đủ
+    số lượng), đúng trạng thái (có thể không có), nội dung không trống và dưới số lượng
+    cực đại từ, đúng mã xác thực đến server
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng id của bài
+    viết và url của bài viết (có thể trống).
+    input: 
+        token: xxx
+        image hoặc video
+        described:  balabala
+        status: happy
+    output:
+        code: 1000
+        message: OK
+        data:{
+            id: 
+        }
+    2. Người dùng gửi nhầm mã phiên đăng nhập hoặc mã phiên đăng nhập đã quá cũ, các
+    dữ liệu tham số khác hợp lệ.
+    Kết quả mong đợi: hệ thống khiến người dùng bị chuyển sang màn hình đăng nhập
+    input:
+        token: xx(token sai)
+        image: file(jpeg, jpg, png) or video: file(mp4, 3gp...)
+        described: string balabala
+        status: happy
+    output:
+        code: 1004
+        message: "Parameter value is invalid"
+    3. Người dùng truyền mã phiên hợp lệ, các dữ liệu khác hợp lệ nhưng ảnh không hợp lệ
+    do tổng dung lượng quá lớn.
+    Kết quả mong đợi: ứng dụng cần kiểm tra ngay phía mình để đảm bảo không gửi dữ
+    liệu không chính xác. Thông báo cần hiển thị là dung lượng ảnh quá lớn. 
+    input:
+        token: xxx
+        image: file(jpeg, jpg, png) or video: file(mp4, 3gp...)    (lớn hơn 10mb)
+        described: string balabala
+        status: happy
+    output:
+        code: 1006
+        message: File size too big  
+    4. Người dùng truyền mã phiên hợp lệ, các dữ liệu khác hợp lệ nhưng video không hợp lệ
+    do thời lượng hoặc dung lượng quá lớn.
+    Kết quả mong đợi: ứng dụng cần kiểm tra ngay phía mình để đảm bảo không gửi dữ
+    liệu không chính xác. Thông báo cần hiển thị là thời lượng hoặc dung lượng video
+    quá lớn. 
+    input:
+        token: xxx
+        image: file(jpeg, jpg, png) or video: file(mp4, 3gp...)    (lớn hơn 10mb, thời lượng dưới 1s hoặc trên 10s) 
+        described: string balabala
+        status: happy
+    output:
+        code: 1006
+        message: File size too big  
+    5. Người dùng truyền mã phiên hợp lệ, các dữ liệu khác hợp lệ nhưng server bị lỗi không
+    đăng được bài.
+    Kết quả mong đợi: lỗi 9999 hoặc 1001, ứng dụng vẫn ở nguyên màn hình đăng bài. 
+    FE xử lý
+    6. Người dùng đã nhập đủ các dữ liệu khác hợp lệ nhưng trong quá trình đăng bài thì mạng
+    bị ngắt kết nối.
+    Kết quả mong đợi: ứng dụng cần kiểm tra ngay phía mình để đảm bảo đưa ra thông
+    báo về kết nối mạng bị ngắt. 
+    FE xử lý
+
+
+
+

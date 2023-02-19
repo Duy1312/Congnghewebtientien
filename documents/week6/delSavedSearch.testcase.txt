@@ -1,0 +1,55 @@
+/del_saved_search
+
+    token;
+	 search_id;
+	 all;
+	
+    
+    1. Người dùng truyền đúng mã phiên đăng nhập và tham số khác hợp lệ
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết và xóa lịch sử tìm kiếm trong danh sách các tìm kiếm gần
+    đây cũng như xóa các tìm kiếm cùng từ khóa trong Nhật ký hoạt động (khác
+    với Facebook).
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác hợp lệ.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    //middle xu li 
+    3. Người dùng truyền đúng mã phiên đăng nhập (không xóa tất) nhưng không
+    có lịch sử tìm kiếm nào với search_id như vậy trong CSDL.
+    Kết quả mong đợi: Nhận được mã lỗi sai giá trị của dữ liệu tìm kiếm
+    // không tìm được thì thôi vẫn OK
+    4. Người dùng truyền đúng mã phiên đăng nhập. Nhưng người dùng đã bị khóa
+    tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    //middle xi li
+    5. Người dùng truyền đúng mã phiên đăng nhập (không xóa tất), nhưng
+    search_id của tham số không hợp lệ (bị âm hoặc không phải số hoặc bị trống).
+    Kết quả mong đợi: ứng dụng phải kiểm tra sự hợp lệ của tham số trước khi
+    truyền lên. Nếu lỡ truyền lên thì cần xử lý các thông báo lỗi trả về
+    // lỗi unknown
+    6. Người dùng truyền đúng các tham số (không xóa tất) nhưng hệ thống không
+    thể xóa được lịch sử tìm kiếm đó
+    Kết quả mong đợi: ứng dụng sẽ nhận được thông báo lỗi. Ứng dụng có thể
+    không hiển thị cho người dùng bình thường.
+    // lỗi unknown
+    7. Người dùng truyền đúng các tham số, nhưng trong lúc chờ kết quả của
+    server trả về thì đã chuyển sang giao diện khác.
+    Kết quả mong đợi: ứng dụng phải kiểm tra giao diện hiện tại, nếu không đúng
+    giao diện sẽ không có thao tác gì cả.
+    //fe xu li
+    8. Người dùng truyền đúng tham số token, truyền tham số all=1 (không có tham
+    số search_id) lên nhưng hệ thống không có lịch sử tìm kiếm nào cả
+    Kết quả mong đợi: ứng dụng nhận được mã lỗi về việc không có dữ liệu nào.
+    Nhưng không hiện thông báo lỗi gì hiện lên cho người dùng thường
+    // lỗi params
+    9. Người dùng truyền đúng các tham số, all = 1 và search_id là một giá trị hợp
+    lệ (không âm, là số).
+    Kết quả mong đợi: hệ thống vẫn xóa hết và ứng dụng cập nhật lại giao diện
+    của mình.
+    // code: OK
+    10. Người dùng truyền đúng tham số token, truyền tham số all = 0 và không có
+    tham số search_id.
+    Kết quả mong đợi: ứng dụng nhận được mã lỗi về tham số không hợp lệ.
+    Nhưng không hiện thông báo lỗi gì hiện lên cho người dùng thường
+    // lỗi params

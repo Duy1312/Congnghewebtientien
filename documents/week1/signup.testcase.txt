@@ -1,0 +1,95 @@
+/signup
+POST
+    method: POST
+    1. Người dùng nhập số điện thoại vốn là số chưa được đăng ký trên hệ thống. Nhập
+    đúng mật khẩu là xâu không trùng với số điện thoại, không chứa ký tự đặc biệt.
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công) kèm với mã xác thực được lưu
+    ở phía server
+    Mã này đảm bảo không trùng nhau với hai số khác nhau, gồm cả số kèm chữ, có 6 ký
+    tự
+    Chú ý: số điện thoại phải đủ 10 số, có số 0 ở đầu tiên, chấp nhận số cố định
+    Mật khẩu phải có từ 6 đến 10 ký tự.
+    input:(query params)
+        phonenumber: 0945524200
+        password: 123456
+        uuid: 1
+    output: 
+        code: 1000
+        message: OK
+        data: {
+            id: 
+            token: 
+        }
+    2. Người dùng nhập số điện thoại vốn là số điện thoại đã được đăng ký thành công từ 
+    trước. Người dùng cũng nhập mật khẩu đúng quy định 
+    Kết quả mong đợi: 9996 | User existed
+    input: (query params)
+        phonenumber: 0945524200
+        password: 123456
+        uuid: 1
+    output:
+        code: 9996
+        message: User existed
+        
+   3. Người dùng nhập số điện thoại không đúng định dạng (không đủ số hoặc thừa số hoặc
+    không có số 0 ở đầu tiên) và nhập mật khẩu đúng quy định
+    Kết quả mong đợi: ứng dụng kiểm tra ngay và đưa ra thông báo sai định dạng của số
+    điện thoại. Kể cả khi không có mạng Internet thì ứng dụng vẫn kiểm tra và đưa thông báo.
+    input: (query params)
+        phonenumber: 094552420 (không đủ số)
+        password: 123456
+        uuid: 1
+
+        phonenumber: 0945524200000 (thừa số)
+        password: 123456
+        uuid: 1
+
+        phonenumber: 945524200 (không có số không ở đầu)
+        password: 123456
+        uuid: 1
+
+        phonenumber: 094552420a (chứa kí tự không phải chữ số)
+        password: 123456
+        uuid: 1
+    output: 
+        code: 1004
+        message: Parameter value is invalid
+   
+    4. Người dùng nhập đúng định dạng của số điện thoại nhưng mật khẩu không đúng định
+    dạng (quá ngắn hoặc quá dài hoặc chứa ký tự đặc biệt hoặc trùng với số điện thoại). Ứng
+    dụng cần phải kiểm tra ngay trước khi gửi dữ liệu lên server
+    Kết quả mong đợi: ứng dụng kiểm tra ngay và đưa ra thông báo sai định dạng của mật
+    khẩu. Kể cả khi không có mạng Internet thì ứng dụng vẫn kiểm tra và đưa thông báo.
+    input: (query params)
+        phonenumber: 0945524200
+        password: 12345 (quá ngắn)
+        uuid: 1
+
+        phonenumber: 0945524200
+        password: 123456789012626262626262695959595958851 (quá dài)
+        uuid: 1
+
+        phonenumber: 0945524200
+        password: 123456@(chứa kí tự đặc biệt)
+        uuid: 1
+
+        phonenumber: 0945524200
+        password: 0945524200 (trùng với số điện thoại)
+        uuid: 1
+    output: 
+        code: 1004
+        message: Parameter value is invalid
+
+    5. Người dùng bỏ qua không nhập cả số điện thoại và mật khẩu nhưng nhấn vào nút “Đăng
+    ký” (hoặc “Sign up” tùy vào giao diện ứng dụng).
+    Kết quả mong đợi: ứng dụng kiểm tra ngay và đưa ra thông báo sai định dạng của số
+    điện thoại. Kể cả khi không có mạng Internet thì ứng dụng vẫn kiểm tra và đưa thông báo. 
+    input: (query params)
+        phonenumber: (null)
+        password: (null)
+        uuid: (null)
+    output: 
+        "code": "1002",
+        "message": "Parameter is not enough"
+ 
+

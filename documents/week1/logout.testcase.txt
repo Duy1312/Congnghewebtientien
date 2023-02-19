@@ -1,0 +1,32 @@
+/logout
+POST
+    1. Người dùng chỉ đăng nhập trên một thiết bị và sau đó đăng xuất.
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công) và ứng dụng sẽ chuyển sang
+    màn hình đăng nhập. Token cũ sẽ bị xóa đi
+    input: 
+        token: xxx
+    output: 
+        code: 1000
+        message: OK
+    
+    2. Người dùng đăng nhập trên máy A, sau đó tắt mạng. Rồi đăng nhập trên máy B. Tiếp
+    theo mở mạng của máy A ra và (push chưa kịp chuyển về máy A hoặc nhóm không
+    làm push) đăng xuất.
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công) và ứng dụng sẽ chuyển sang
+    màn hình đăng nhập. Tất cả token sẽ bị xóa hết
+
+
+    3. Người dùng đăng nhập trên máy A, sau đó tắt mạng. Rồi đăng nhập trên máy B, sau đó
+    đăng xuất trên máy B. Tiếp theo mở mạng của máy A ra và (push chưa kịp chuyển về máy
+    A hoặc nhóm không làm push) đăng xuất.
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công) và ứng dụng ở máy A sẽ
+    chuyển sang màn hình đăng nhập. Tất cả token sẽ bị xóa hết ở cả 2 phía
+
+    A enters /privateapi, response Unauthorized
+    B enters /privateapi, response Unauthorized
+    4. Người dùng đăng nhập trên máy A và ngắt kết nối mạng. Rồi đăng nhập trên máy B,
+    rồi đăng xuất trên máy B.
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công) và không còn bất kỳ trường
+    token nào dành cho người dùng này ở cả hai phía
+    The same third testcase
+

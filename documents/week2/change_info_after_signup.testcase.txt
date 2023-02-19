@@ -1,0 +1,84 @@
+/change_info_after_signup
+
+Người dùng truyền đúng mã phiên đăng nhập và tên người dùng
+phù hợp cũng như ảnh avatar đúng quy định lên server
+▪Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho
+ứng dụng các thông tin cần thiết.
+
+        id,
+		username
+		phonenumber: 0945524200
+		token: xxx
+		avatar
+
+
+▪  2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn).
+    Kết quả mong đợi: nếu mã phiên đăng nhập quá ngắn hoặc bỏ trống thì ứng dụng có
+    thể tự kiểm tra. Trường hợp nếu gửi lên server thì nhận mã lỗi 1004
+    input: 
+        phonenumber: 0945524200
+        avatar: file
+        token: xx(null or short)
+        username: 
+    output: 
+        code: 1004
+        message: "Parameter value is invalid"
+    3. Người dùng truyền một mã phiên đăng nhập của người khác hoặc một mã phiên đã cũ.
+    Kết quả mong đợi: theo em nên dùng trường thông tin nào để ứng dụng biết mà đăng
+    xuất người dùng ra khỏi. Khi đăng xuất sẽ được chuyển sang màn hình đăng nhập
+    input&output(nhu testcase 2)
+    4. Người dùng truyền một mã phiên hợp lệ nhưng tên username không hợp lệ (nhưng
+    chưa đến mức bị khóa)
+    Kết quả mong đợi: mã lỗi 1004. Phía client cần hiển thị đúng một loại thông báo hợp
+    lý cho mã lỗi này. 
+    input:
+        phonenumber: 0945524200
+        avatar: file
+        token: xxx
+        username: (null)
+        username: @@username(quá ngắn)
+        username: 0945524200(trùng với số điện thoại)
+        username: usern(quá ngắn)
+        username: user...name1234(quá dài)
+        username: 0945524200( là số điện thoại)
+    output: 
+        code: 1004
+        message: "Parameter value is invalid"
+    5. Người dùng truyền một mã phiên hợp lệ nhưng tên username không hợp lệ (đến mức
+    bị khóa)
+    Kết quả mong đợi: trường is_blocked được gán giá trị phù hợp. Phía client chuyển
+    người dùng sang trang đăng nhập và hiển thị thông báo hợp lý cho loại mã lỗi này.
+    input: 
+        phonenumber: 0999999999
+        token: xxx
+        username: usernameisblocked
+        avatar: file
+    output:
+        code: 9995
+        message: "User is not validated"
+    6. Người dùng truyền mã phiên hợp lệ, tên username hợp lệ nhưng ảnh avatar không hợp
+    lệ do dung lượng quá lớn.
+    Kết quả mong đợi: ứng dụng cần kiểm tra ngay phía mình để đảm bảo không gửi dữ
+    liệu không chính xác. Thông báo cần hiển thị là dung lượng ảnh quá lớn. 
+    input: 
+        phonenumber: 0945524200
+        token: xxx
+        username: username
+        avatar: file(quá dung lượng hown 4mb)
+    output:
+        code: 1006
+        message: File size too big
+    7. Người dùng truyền mã phiên hợp lệ, tên username hợp lệ nhưng ảnh avatar bị server
+    từ chối.
+    Kết quả mong đợi: có thể mã lỗi là 1006. Ở đây ứng dụng nên hiển thị thông tin rằng
+    tải file thất bại, người dùng có hai tùy chọn là vào trang chủ hoặc tiếp tục tải ảnh khác
+    lên
+    input:
+        phonenumber: 0945524200
+        token: xxx
+        username: username
+        avatar: file.txt(sai định dạng ảnh)
+    output:
+        code: 1006
+        message: File size too big
+

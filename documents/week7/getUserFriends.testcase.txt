@@ -1,0 +1,70 @@
+/get_user_friends
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết.
+   
+     token
+   user_id
+   index 
+   count 
+   
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác hợp lệ.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    Xem lại test case 3 của change_info_after_signup
+    32
+    Các test case cho get_user_friends (2)
+    3. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác nhưng
+    không có kết quả nào được trả về.
+    Kết quả mong đợi: Hiển thị không tìm thấy kết quả nào.
+    4. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    người dùng đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    Xem lại test case 3 của change_info_after_signup
+    33
+    Các test case cho get_user_friends (3)
+    5. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có các thông số username hoặc id có giá trị không chuẩn.
+    Kết quả mong đợi: ứng dụng phải ẩn đi các kết quả không hợp lệ trước khi
+    hiện lên.
+    6. Người dùng truyền đúng các tham số nhưng các user đã kết bạn trả về không
+    theo đúng thứ tự chữ cái của tên người bạn
+    Kết quả mong đợi: ứng dụng sẽ cố gắng sắp xếp lại các kết quả theo đúng
+    thứ tự chữ cái.
+    34
+    Các test case cho get_user_friends (4)
+    7. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác để lấy các
+    bạn của chính mình, nhưng kết quả trả về có thời gian kết bạn bị sai.
+    Kết quả mong đợi: ứng dụng vẫn phải hiển thị người bạn này, thời gian kết
+    bạn có thể ẩn đi.
+    8. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có số bạn chung KHÔNG CHUẨN ở một số người bạn.
+    Kết quả mong đợi: ứng dụng sẽ không hiển thị số bạn chung ở các người
+    bạn này.
+    35
+    Các test case cho get_user_friends (5)
+    9. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác để lấy các
+    bạn của một ai đó (khác người dùng), nhưng kết quả trả về có thời gian kết bạn bị
+    sai.
+    Kết quả mong đợi: ứng dụng KHÔNG cần hiển thị thời gian kết bạn.
+    10. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác để lấy
+    danh sách bạn của một ai đó (khác người dùng), nhưng kết quả trả về có số bạn
+    chung KHÔNG CHUẨN ở một số người bạn.
+    Kết quả mong đợi: ứng dụng sẽ không hiển thị số bạn chung ở các yêu cầu
+    này.
+    36
+    Các test case cho get_user_friends (6)
+    11. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, và kết
+    quả trả về có tổng số total lớn hơn tổng số người bạn đã được server trả về.
+    Kết quả mong đợi: ứng dụng sẽ hiển thị tổng số total người bạn.
+    12. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có tổng số total người bạn bé hơn tổng số các người bạn trả về bởi
+    các lần truy vấn.
+    Kết quả mong đợi: ứng dụng sẽ hiển thị tổng số total là bằng tổng số người
+    bạn đã nhận được sau các lần truy vấn.
+    37
+    Các test case cho get_user_friends (7)
+    13. Hệ thống cho phép chức năng pull down và pull up để làm mới và thêm mới
+    vào danh sách các bạn của một người dùng nào đó.
+    14. Trừ màn trang chủ, hệ thống KHÔNG cho phép thực hiện việc cache dữ
+    liệu ở các giao diện sử dụng API này

@@ -1,0 +1,41 @@
+/get_push_settings
+    1. Người dùng truyền đúng mã phiên đăng nhập
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết.
+    input: 
+        token
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    // middle xu li 
+    3. Người dùng truyền đúng mã phiên đăng nhập nhưng hệ thống không thể thiết lập việc
+    xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết nối
+    Internet”
+    output: 
+    code
+    message: Unknown
+    4. Người dùng truyền đúng mã phiên đăng nhập. Nhưng người dùng đã bị khóa tài khoản
+    (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    //middle xu li 
+    5. Người dùng truyền đúng mã phiên đăng nhập, nhưng trong các output trả về có giá trị
+    không chuẩn (có chứa các ký tự khác 0 và 1).
+    Kết quả mong đợi: hệ thống báo lỗi về cho ứng dụng, ứng dụng đành chọn giá trị mặc
+    định là 1 (nếu chưa có thông tin về push setting lưu trong máy). Ứng dụng vẫn giữ
+    nguyên giá trị push setting cũ nếu đã có thông tin lưu trong máy.
+    // Fe xu li 
+    6. Người dùng truyền đúng mã phiên đăng nhập, các output trả về đều là 1 cả, nhưng
+    thiết bị sắp hết pin.
+    Kết quả mong đợi: ứng dụng có thể bị thiết bị chiếm quyền phản hồi với thông báo
+    push.
+    // Fe xu li 
+    7. Người dùng truyền đúng mã phiên đăng nhập, nhưng đây là lần đầu tiên gửi yêu cầu
+    đối với tài khoản này.
+    Kết quả mong đợi: hệ thống mặc định rằng tất cả các cài đặt thông báo đều được thiết
+    lập là 1 cả.
+    code: 1000
+    message: OK 

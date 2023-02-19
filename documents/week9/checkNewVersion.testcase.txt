@@ -1,0 +1,67 @@
+/check_new_version
+lastUpdate
+
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết. Ứng dụng lưu/cập nhật nội dung của biến version vào trong trường
+    last_update của thiết bị
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    //middle
+    3. Người dùng truyền đúng mã phiên đăng nhập nhưng hệ thống không thể thiết lập việc
+    xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết nối
+    Internet”
+    message: unknown
+    4. Người dùng truyền đúng mã phiên đăng nhập. Nhưng người dùng đã bị khóa tài khoản
+    (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    //middle
+    5. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác nhưng last_update
+    lại không có.
+    Kết quả mong đợi: Hệ thống phải báo lỗi cho lập trình viên (hoặc công ty quản lý) vì
+    đây là lỗi nghiêm trọng: không có giá trị này trong mã nguồn. Các trường khác cần
+    phải về hợp lệ (yêu cầu người dùng phải tải bản mới về).
+    // code
+    message: params value is invalid
+
+    6. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng
+    phiên bản last_update không tồn tại.
+    Kết quả mong đợi: hệ thống có thể báo lỗi hoặc vẫn gửi về các thông tin khác. Nếu
+    báo lỗi thì ứng dụng căn cứ tình hình mà hiện thông báo lỗi cho người dùng.
+    code: 
+    message: params value is invalid
+    7. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống báo người dùng đã bị khóa (trường active = 0).
+    Kết quả mong đợi: ứng dụng phải đẩy người dùng sang trang đăng nhập với thông
+    báo bạn đã bị khóa tài khoản.
+    //middle kiem tra is_blocked= true
+    8. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống báo sai ID của người dùng hoặc sai giá trị active (giá trị đúng là 0 hoặc 1).
+    Kết quả mong đợi: Ứng dụng vẫn hoạt động bình thường.
+    // Fe xu li 
+    9. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống báo sai giá trị badge (âm hoặc sai định dạng).
+    Kết quả mong đợi: Ứng dụng coi như giá trị đó bằng 0.
+    // Fe xu li 
+    10. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ và hệ
+    thống báo giá trị badge hợp lệ.
+    Kết quả mong đợi: Ứng dụng hiển thị một hình tròn đỏ ở trên hình cái chuông, trong
+    đó có hiển thị số badge. Nếu số đó lớn hơn 100 thì ghi 99+. Chú ý vòng tròn đỏ phải
+    to dần nếu cần hiển thị 1, 2, hoặc 3 ký tự.
+    // fe xu li 
+    11. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ và hệ
+    thống báo giá trị unread_message hợp lệ.
+    Kết quả mong đợi: Ứng dụng hiển thị một hình tròn đỏ ở trên hình biểu tượng chat,
+    trong đó có hiển thị số tin nhắn chưa đọc. Nếu số đó lớn hơn 100 thì ghi 99+. Chú ý
+    vòng tròn đỏ phải to hơn nếu con số badge là 99+
+    // Fe xu li 
+    12. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác và hệ thống gửi
+    về có giá trị now hợp lệ (không trống và không chứa ký tự đặc biệt khác dấu chấm). Giá trị
+    now sau là hợp lệ: 0.1.0.9A (chẳng hạn)
+    Kết quả mong đợi: giá trị now là giá trị mà hệ thống cho rằng đấy mới là phiên bản
+    thực sự của ứng dụng. Ứng dụng cần cập nhật.

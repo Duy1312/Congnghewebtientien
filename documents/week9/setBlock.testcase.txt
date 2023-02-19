@@ -1,0 +1,62 @@
+/set_block
+
+token;
+ user_id;
+ type; 0/1
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết. Ứng dụng lưu/cập nhật danh sách chặn vào trong thiết bị
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+   // middle xu li
+    3. Người dùng truyền đúng mã phiên đăng nhập nhưng hệ thống không thể thiết lập việc
+    xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết nối
+    Internet”
+    // server unknown FE xu li 
+    4. Người dùng truyền đúng mã phiên đăng nhập. Nhưng người dùng đã bị khóa tài khoản
+    (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    // middle xu li 
+    5. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác nhưng user_id lại
+    chính là người chủ tài khoản.
+    Kết quả mong đợi: Ứng dụng tự kiểm tra đầu vào trước khi gửi. Nếu lỡ gửi lên thì hệ
+    thống phải báo lỗi về cho ứng dụng, ứng dụng căn cứ tình hình mà hiện thông báo lỗi
+    cho người dùng.
+    output:
+        code:
+        message: params value is invalid
+    6. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng
+    người bị chặn (ở user_id) không tồn tại.
+    Kết quả mong đợi: hệ thống báo lỗi và ứng dụng căn cứ tình hình mà hiện thông báo
+    lỗi cho người dùng.
+    output:
+        code:
+        message: action 
+    7. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng
+    người bị chặn (ở user_id) đã bị khóa tài khoản.
+    Kết quả mong đợi: hệ thống báo lỗi và ứng dụng căn cứ tình hình mà hiện thông báo
+    lỗi cho người dùng.
+    output:
+        code: 
+        message: action
+    8. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng tham
+    số loại thao tác không đúng (không phải 0 hoặc 1).
+    Kết quả mong đợi: hệ thống báo lỗi và ứng dụng căn cứ tình hình mà hiện thông báo
+    lỗi cho người dùng.
+    output:
+        code:
+        message: params value is invalid
+    9. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng lại đi
+    chặn một người chưa bỏ chặn hoặc đi bỏ chặn một người chưa bao giờ chặn.
+    Kết quả mong đợi: hệ thống báo lỗi và ứng dụng căn cứ tình hình mà hiện thông báo
+    lỗi cho người dùng.
+    output: 
+        code: 
+        message: action
+    10. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ và hợp lệ
+    nhưng việc chặn/bỏ chặn diễn ra trong thời gian ngắn.
+    Kết quả mong đợi: hệ thống vẫn phục vụ cho người dùng (?).
+    // có phục vụ

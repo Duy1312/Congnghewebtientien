@@ -1,0 +1,61 @@
+/get_saved_search
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết.
+    input:
+        token:
+        index:
+        count:
+    output:
+        code:
+        message:
+        data:
+            id:
+            keyword:
+            created:
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác hợp lệ.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    Xem lại test case 3 của change_info_after_signup
+    //midle xu li
+    3. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác nhưng
+    không có kết quả nào được trả về.
+    Kết quả mong đợi: Hiển thị không tìm thấy kết quả nào. Sẽ không xổ xuống
+    danh sách các tìm kiếm gần đây.
+    //FE xu li
+    4. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    người dùng đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    //middle xu li
+    5. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có các keyword chưa là xâu chuẩn.
+    Kết quả mong đợi: ứng dụng phải chuẩn hóa các từ khóa trước khi hiện lên.
+    //FE xu li
+    6. Người dùng truyền đúng các tham số nhưng các keyword trả về không theo
+    đúng thứ tự
+    Kết quả mong đợi: ứng dụng sẽ cố gắng sắp xếp lại các kết quả tìm kiếm
+    theo đúng thứ tự.
+    //FE xu li
+    7. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    kết quả trả về có một lịch sử tìm kiếm có một trường thông tin không hợp lệ (sai id
+    hoặc sai keyword hoặc sai thời gian tìm kiếm hoặc trùng id).
+    Kết quả mong đợi: ứng dụng phải ẩn đi những lịch sử tìm kiếm không có
+    thông tin hợp lệ.
+    //FE xu li
+    8. Người dùng truyền đúng các tham số nhưng các keyword trả về khiến lịch sử
+    tìm kiếm nhiều hơn 20 và trong đó không có keyword nào trùng nhau
+    Kết quả mong đợi: ứng dụng sẽ hiển thị tối đa 20 kết quả trong phần Popup
+    gợi ý từ lịch sử tìm kiếm, nhưng trong Nhật ký hoạt động thì hiển thị tất cả những
+    gì hợp lệ từ phía server trả về.
+    //FE xu li
+    9. Người dùng truyền đúng các tham số nhưng các keyword trả về nhiều hơn 20
+    và trong đó có các keyword trùng nhau
+    Kết quả mong đợi: ứng dụng sẽ hiển thị tối đa 20 kết quả trong phần Popup
+    gợi ý từ lịch sử tìm kiếm. Với các keyword trùng nhau thì chỉ hiển thị lịch sử của
+    tìm kiếm keyword mới nhất. Nhưng trong Nhật ký hoạt động thì hiển thị tất cả
+    những gì hợp lệ từ phía server trả về.
+    // FE xu li 
+    10. Hệ thống cho phép người dùng có chức năng pull up to load more ở danh
+    sách các Nhật ký hoạt động. Tất nhiên không cần pull down to refresh
+    // FE xu li 

@@ -1,0 +1,83 @@
+ /edit_post/:postId(query params)
+ PUT
+    1. Người dùng truyền đúng mã phiên đăng nhập, id bài viết và các tham số khác phù
+    hợp
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết.
+    input: 
+    described
+    status
+    token
+    image
+    output: 
+        code: 1000
+        message: OK
+        data:
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập, toàn bộ
+    phần nội dung đang chỉnh sửa sẽ bị xóa đi ở phía client. Xem lại test case 3 của
+    change_info_after_signup
+    input output như test case 3 change_info_after_signup
+    3. Người dùng truyền đúng mã phiên đăng nhập, id bài viết và các tham số khác phù hợp
+    nhưng nội dung không phù hợp để đăng (ví dụ ảnh giết hại động vật)
+    Kết quả mong đợi: mã lỗi 1010, ứng dụng hiển thị ra các thông tin cần thiết.
+    input:
+        như test case 1 nhưng ảnh k phù hợp
+    output: 
+        code : 1010
+        message: Action has been done previously by this user
+    *********** chưa xử lý được hình ảnh không phù hợp
+    4. Người dùng truyền đúng mã phiên đăng nhập, id bài viết và các tham số khác phù hợp
+    nhưng nội dung không phù hợp để đăng toàn cầu (ví dụ ảnh ăn thịt bò, thịt lợn)
+    Kết quả mong đợi: ứng dụng sẽ phải phát cảnh báo về việc bài viết được đăng nhưng
+    sẽ hạn chế với một số quốc gia.
+    input:
+        như test case 1 nhưng ảnh k phù hợp
+    output: 
+        code : 1010
+        message: Action has been done previously by this user
+    *********** chưa xử lý được hình ảnh không phù hợp
+    5. Người dùng truyền đúng mã phiên đăng nhập, id bài viết và các tham số khác phù hợp
+    nhưng tài khoản bị khóa
+    Kết quả mong đợi: mã lỗi 9995, ứng dụng hiển thị ra các thông tin cần thiết và đẩy
+    người dùng sang trang đăng nhập
+    input: 
+        như test case 1 nhưng tài khoản bị khoá(trường isblocked = 1)
+    output: 
+        code : 9995
+        message: User is not validated
+    6. Người dùng truyền đúng mã phiên đăng nhập, id bài viết, nội dung văn bản mới và
+    danh sách các ảnh bị xóa nhưng trong đó có một chỉ số không phù hợp (âm hoặc quá lớn)
+    Kết quả mong đợi: tùy tình số lượng các chỉ số phù hợp mà xóa ảnh đi.
+
+    *************chưa hiểu
+    7. Người dùng truyền đúng mã phiên đăng nhập, id bài viết, danh sách các ảnh bị xóa
+    nhưng trong đó tất cả chỉ số đều không phù hợp (âm hoặc quá lớn)
+    Kết quả mong đợi: cần kiểm tra phía client trước, trong trường hợp nếu lỡ truyền lên
+    thì server phải báo lỗi tham số không phù hợp
+    *************chưa hiểu
+    8. Người dùng yêu cầu xóa ảnh (nhưng bài viết không có ảnh) xóa video (nhưng bài
+    không có video)
+    Kết quả mong đợi: nếu trong các trường thông tin cần sửa có trường được phép
+    cập nhật (chẳng hạn described được phép cập nhật) thì vẫn cho phép cập nhật. Còn không
+    thì sẽ trả về lỗi tham số không phù hợp
+    Phía client cần phải kiểm tra để lọc bỏ các input không hợp lệ nếu vẫn có tối
+    thiểu một tham số (cần chỉnh sửa) là hợp lệ trong đó. Nếu lỡ truyền cả tham số không hợp
+    lệ lên thì server vẫn phải trả về đúng lỗi (nếu cần thiết).
+
+    *************chưa hiểu
+    9. Có yêu cầu thêm ảnh (trong bài viết đã có video) hoặc thêm video (nhưng bài đã có
+    ảnh)
+    Kết quả mong đợi: phía ứng dụng cần kiểm tra trước để báo lỗi. Nếu như lỡ
+    truyền lên server thì server chỉ cho phép cập nhật các trường thông tin hợp lệ (nếu có)
+    hoặc báo lỗi (nếu không có trường khác hợp lệ để cập nhật)
+    output: 
+        code: params value is invalid
+    10. Có yêu cầu sửa trạng thái nhưng thông tin cần sửa không có trong danh sách trạng
+    thái bài viết hợp lệ của ứng dụng
+    Kết quả mong đợi: phía ứng dụng cần kiểm tra trước để báo lỗi. Nếu như lỡ
+    truyền lên server thì server chỉ cho phép cập nhật các trường thông tin hợp lệ (nếu có)
+    hoặc báo lỗi (nếu không có trường khác hợp lệ để cập nhật)
+    ***********doing 
+

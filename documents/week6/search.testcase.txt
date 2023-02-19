@@ -1,0 +1,91 @@
+/search
+    1. Người dùng truyền đúng mã phiên đăng nhập, các tham số khác phù hợp
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết.
+    
+            keyword
+            count
+            index
+            token
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    //middle xu li
+    3. Người dùng truyền đúng mã phiên đăng nhập, các tham số khác phù hợp
+    nhưng không có kết quả nào được trả về.
+    Kết quả mong đợi: Hiển thị không tìm thấy kết quả nào. Có lẽ SV phải tự thiết
+    kế giao diện cho trường hợp này vì thường Facebook sẽ luôn cố tạo ra kết
+    quả trả về
+    FE xu li
+    4. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Nhưng
+    người dùng đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    middle va FE xu li 
+    5. Người dùng truyền đúng mã phiên đăng nhập, nhưng sai user_id của người
+    dùng.
+    Kết quả mong đợi: mã lỗi trả về báo giá trị tham số trả về bị sai. Nhưng tất
+    nhiên ứng dụng sẽ phải có thông báo khác đi
+    middle xu li
+    6. Người dùng truyền đúng các tham số nhưng không có keyword
+    Kết quả mong đợi: ứng dụng sẽ cố gắng chặn từ trước khi gửi lên server.
+    Nhưng nếu lỡ gửi yêu cầu lên server thì server sẽ báo lỗi về tham số. Ứng dụng
+    có thể không cần hiện lên thông báo gì với lỗi này.
+    output:
+        code: params value is invalid
+        message: params ...
+    7. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác phù hợp.
+    Nhưng dữ liệu trả về có trường author bị lỗi về id.
+    Kết quả mong đợi: ứng dụng không hiển thị bài viết có thông tin tác giả bị lỗi
+    về id. Các trường khác của author bị lỗi thì vẫn có thể nhận giá trị mặc định
+    để hiển thị bài viết
+    FE xu li 
+    8. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Nhưng
+    dữ liệu trả về có trường described và trường đa phương tiện (image hoặc video)
+    bị lỗi (hoặc bài viết chỉ có trường described nhưng trường này bị lỗi)
+    Kết quả mong đợi: không hiển thị bài viết bị lỗi như trên
+    FE xu li 
+    9. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    dữ liệu trả về có một trong hai trường described và trường đa phương tiện (image
+    hoặc video) bị lỗi.
+    Kết quả mong đợi: ứng dụng vẫn hiển thị bài viết cho các trường thông tin
+    không bị lỗi. Các trường bị lỗi thì vẫn có thể nhận giá trị mặc định để hiển thị
+    bài viết
+    FE xu li 
+    10. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Có bài
+    viết cần phải che đi hình ảnh/video không thích hợp nhưng ứng dụng bị lỗi trong
+    việc hiển thị màn che
+    Kết quả mong đợi: phải bắt được sự kiện lỗi hiển thị màn che để cuối cùng là
+    xóa đi bài viết trong danh sách. 
+    fe xu li 
+    11. Người dùng truyền đúng mã phiên đăng nhập và các tham số. Nhưng đang
+    kết nối thì mạng Internet bị ngắt
+    Kết quả mong đợi: ứng dụng cần hiện thông báo “Không thể kết nối Internet”
+    càng sớm càng tốt
+    fe xu li 
+    12. Người dùng truyền đúng mã phiên đăng nhập và các tham số
+    Kết quả mong đợi: ứng dụng chỉ cần hiển thị 20 lịch sử tìm kiếm trong mỗi lần
+    yêu cầu, các lịch sử tìm kiếm phân biệt nhau qua xâu tìm kiếm (đã chuẩn hóa).
+    Nếu một xâu được tìm kiếm nhiều lần thì ứng dụng hiển thị lần gần đây nhất.
+    ??? có cần lưu lịch sử tìm kiếm ở server không?
+    13. Người dùng truyền đúng mã phiên đăng nhập và các tham số. Nhưng đang
+    nhìn danh sách kết quả tìm kiếm thì có những bài viết mới xuất hiện khớp với kết
+    quả tìm kiếm. Nếu người dùng yêu cầu tìm kiếm các bài đằng sau danh sách
+    (index lớn hơn) thì server có báo về những bài mới không?
+    Kết quả mong đợi: Để đơn giản, không cần thiết phải báo về những bài mới
+    như vậy`
+    không cần làm
+    14. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác nhưng
+    tham số index hoặc count bị lỗi (không có hoặc không đúng định dạng).
+    Kết quả mong đợi: mã lỗi sai giá trị dữ liệu của tham số. Ứng dụng không
+    nhận được thêm danh sách nào cả. 
+    // đã làm
+13. Việc tìm kiếm phải cố gắng trải rộng các kết quả tìm thấy không nên dùng từ
+khóa LIKE. Chẳng hạn từ khóa “Sửa chữa nhà”
++ Ưu tiên đứng đầu danh sách là các kết quả có chứa đủ các từ và đúng thứ tự
++ Tiếp theo là các kết quả đủ từ nhưng không đúng thứ tự
++ Tiếp theo là các kết quả không đủ từ (chỉ trên 20% số từ khóa có mặt) mà
+vẫn đúng thứ tự
++ Tiếp theo là các kết quả với từ khóa không có dấu.
++ Như vậy vẫn có khả năng một từ khóa nào đó không có kết quả (không như
+Facebook)

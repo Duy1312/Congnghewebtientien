@@ -1,0 +1,39 @@
+/check_new_item
+GET
+    1. Người dùng truyền đúng mã last_id, category_id đúng định dạng
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng số lượng
+    phần tử mới của tab. Ứng dụng tự hiển thị một nút nổi ngay trên phần đầu tiên của
+    danh sách bài viết
+    
+        last_id
+        category_id
+    
+    2. Người dùng gửi sai một trong hai mã last_id, category_id (không truyền hoặc giá trị
+    không hợp lệ)
+    Kết quả mong đợi: ứng dụng sẽ kiểm tra trước để không gửi dữ liệu không hợp lệ lên.
+    Tuy vậy nếu lỡ gửi lên thì khi hệ thống trả về lỗi, ứng dụng sẽ không cần hiển thị
+    thông báo cho người dùng bình thường biết.
+    output: 
+        code: params value is invalid
+    3. Người dùng truyền các tham số hợp lệ nhưng giá trị new_items trả về không hợp lệ.
+    Kết quả mong đợi: Ứng dụng coi như giá trị new_items bằng 0.
+    FE xu li
+    4. Người dùng truyền các dữ liệu tham số hợp lệ và new_items trả về hợp lệ nhưng người
+    dùng không còn ở trong giao diện trang chủ nữa.
+    Kết quả mong đợi: Ứng dụng lưu new_items vào trong cache, nhưng kể cả khi quay
+    lại màn hình trang chủ, thì vẫn gửi yêu cầu check_new_item.
+    FE xu li
+    5. Người dùng truyền các dữ liệu tham số hợp lệ và new_items trả về hợp lệ nhưng người
+    dùng đã bị đẩy sang trang đăng nhập.
+    Kết quả mong đợi: Ứng dụng bỏ qua không xử lý dữ liệu được trả về này.
+    FE xu li
+    6. Ứng dụng đã truyền đủ các dữ liệu tham số hợp lệ nhưng server bị lỗi không lấy được
+    giá trị new_items này.
+    Kết quả mong đợi: mã lỗi trả về, ứng dụng vẫn ở nguyên màn hình trang chủ.
+    output: 
+        code: unknown error
+    7. Ứng dụng đã truyền đủ các dữ liệu tham số hợp lệ nhưng trong quá trình kiểm tra thì
+    mạng bị ngắt kết nối.
+    Kết quả mong đợi: ứng dụng cần kiểm tra ngay phía mình để đảm bảo đưa ra thông
+    báo về kết nối mạng bị ngắt. 
+    FE xu li 

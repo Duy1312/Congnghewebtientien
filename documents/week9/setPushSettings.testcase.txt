@@ -1,0 +1,60 @@
+/set_push_settings
+
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết. Ứng dụng cập nhật giao diện (nếu có thay đổi)
+    
+    like_comment; 0/1
+    from_friends;0/1
+    requested_friend;0/1
+    suggested_friend;0/1
+    birthday;0/1
+    video;0/1
+    report;0/1
+    sound_on;0/1
+    notification_on;0/1
+    vibrant_on;0/1
+    led_on;0/1
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    //middle
+    3. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác nhưng hệ thống
+    không thể thiết lập việc xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết nối
+    Internet”. Push setting vẫn như cũ
+    //middle
+    4. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng người dùng
+    đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    //middle
+    5. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng trong các
+    input gửi lên có giá trị không chuẩn (có chứa các ký tự khác 0 và 1).
+    Kết quả mong đợi: ứng dụng phải tự lọc ra các yêu cầu hợp lệ. Nhưng nếu lỡ gửi lên
+    THÌ server (phải) trả về thông báo lỗi dẫu chỉ có duy nhất một input lỗi. Push setting
+    vẫn như cũ.
+    6. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng trong các
+    input gửi lên thì không phải tham số nào cũng có mặt
+    Kết quả mong đợi: hệ thống phải hiểu rằng tham số vắng mặt sẽ vẫn giữ giá trị mặc
+    định của hệ thống nếu đây là lần đầu tiên gửi cập nhật setting lên.
+    //code: 1000
+    message: OK
+    Nếu đây là lần thứ N gửi thiết lập cài đặt thông báo đẩy thì giá trị vắng mặt sẽ được
+    hiểu là không cập nhật gì so với giá trị đang lưu trên hệ thống.
+    7. Người dùng truyền đúng mã phiên đăng nhập nhưng các tham số còn lại đều vắng
+    mặt.
+    Kết quả mong đợi: hệ thống trả về thông báo lỗi tham số. Ứng dụng phải có cách hiển
+    thị phản hồi cho phù hợp. Có lẽ tốt nhất là các cài đặt đều không thay đổi gì cả (cả
+    phía client và server).
+    code: 
+    message: params value is invalid
+    8. Người dùng truyền đúng mã phiên đăng nhập, có ít nhất một tham số và tham số đó
+    hợp lệ nhưng tham số này giống hệt tùy chọn hiện tại của hệ thống.
+
+    ????????????????????????????????????????????????????? 
+    Kết quả mong đợi: hệ thống trả về thông báo lỗi tham số hoặc báo hành động này đã
+    được thực hiện bởi người dùng. Ứng dụng phải có cách hiển thị phản hồi cho phù
+    hợp. Có lẽ tốt nhất là các cài đặt đều không thay đổi gì cả (cả phía client và server).

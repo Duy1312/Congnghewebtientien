@@ -1,0 +1,61 @@
+/get_list_blocks
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết. Ứng dụng hiển thị ảnh avatar với hiệu ứng mờ đi của ảnh.
+   
+   token
+   index
+   count
+   
+    code: 1000
+    message: OK
+    data:
+        id
+        username
+        avatar
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác hợp lệ.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    //midle xu li 
+    3. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác nhưng hệ
+    thống không thể thiết lập việc xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết
+    nối Internet”
+    // FE xu li server tra ve unknown
+    4. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    người dùng đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    //midle
+    5. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    không có tham số index và count, hoặc các tham số này có giá trị không chuẩn
+    (có chứa các ký tự đặc biệt, hoặc là số âm, hoặc index lớn hơn tổng số danh sách
+    gợi ý).
+    Kết quả mong đợi: hệ thống báo lỗi về cho ứng dụng, tùy tình trạng mà ứng
+    dụng báo lên cho người dùng biết
+    code:message: params value is invalid
+    6. Người dùng truyền đúng các tham số, hệ thống trả về đúng kết quả, nhưng
+    ứng dụng không hiển thị được ảnh avatar của người dùng hoặc.
+    Kết quả mong đợi: ứng dụng sẽ hiển thị ảnh mặc định của avatar (không cần
+    mờ). 
+    // FE xu li 
+    7. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng hệ
+    thống phải trả về các user_id chưa bị khóa hoặc bị xóa tài khoản. Nếu có trả về
+    thì vẫn chấp nhận cho ứng dụng, nhưng đó tính là lỗi của server.
+    Kết quả mong đợi: ứng dụng vẫn hiển thị những gì mà server trả về.
+    ?????doing here
+    8. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    trong danh sách trả về có user_id bị trùng với một trong số các user_id ở các yêu
+    cầu chặn khác.
+    Kết quả mong đợi: ứng dụng kiểm tra việc trùng lặp và loại bỏ kết quả trùng
+    lặp.
+    //Fe xu li 
+    9. Hệ thống cho phép nhiều người cùng chặn một người hoặc một người cùng
+    chặn nhiều người. Nhưng không cho phép hai người đều chặn lẫn nhau.
+    // check lúc set block 
+    10. Nếu một người dùng bị khóa tài khoản thì không hiển thị trong danh sách các
+    tài khoản bị chặn của một ai đó. Nhưng một khi họ mở lại tài khoản thì vẫn nằm
+    trong danh sách các tài khoản bị chặn của một ai đó
+    // xử lí phần khoá tài khoản
+    11. Nếu một người dùng bị xóa tài khoản (chứ không phải khóa) thì vĩnh viễn
+    không tồn tại trong danh sách các tài khoản bị chặn của một ai đó
+    // xử lí phần xoá tài khoản

@@ -1,0 +1,75 @@
+/check_verify_code
+Người dùng truyền đúng số điện thoại và đúng mã xác thực đến
+server
+▪ Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi
+cho ứng dụng mã phiên đăng nhập, mã id người dùng và mã
+xác thực cũ sẽ chính thức bị xóa khỏi server.
+
+input: 
+        code_verify:
+        phonenumber:
+output:
+    "code": "1000",
+        "message": "OK",
+        "data": {
+            "token": "",
+            "id": "",
+            "active": ""
+        }
+▪ Người dùng gửi sai định dạng số điện thoại.
+▪ Kết quả mong đợi: Ứng dụng kiểm tra ngay phía mình để
+báo cho người dùng. Nếu một lý do nào đó yêu cầu này
+được gửi lên server thì sẽ nhận thông báo giá trị tham số bị
+sai
+input: 
+        code_verify:
+        phonenumber:
+output:
+    {
+    "code": "1004",
+    "message": "Parameter value is invalid"
+}
+
+▪Người dùng truyền một số điện thoại đúng định dạng nhưng không
+có trong danh sách và mã xác thực đúng định dạng
+▪Kết quả mong đợi: mã lỗi 9995 hoặc mã 1004. Phía client cần
+hiển thị đúng một loại thông báo cho hai mã lỗi này. SV tự quy
+định các cách hiển thị mã lỗi cho hợp lý
+
+    output
+    "code": "1004",
+    "message": "Parameter value is invalid"
+    
+    
+▪Người dùng truyền một số điện thoại đã được phép đăng nhập từ
+trước và mã xác thực đúng định dạng
+▪Kết quả mong đợi: mã lỗi 9996 hoặc mã 1004. Phía client cần
+hiển thị đúng một loại thông báo cho hai mã lỗi này. SV tự quy
+định các cách hiển thị mã lỗi cho hợp lý
+    
+     output
+    "code": "1004",
+    "message": "Parameter value is invalid"
+
+
+▪Người dùng truyền một số điện thoại hợp lệ (đã hoàn tất signup
+nhưng hoàn tất bước này) và mã xác thực của một số điện thoại
+khác.
+▪Kết quả mong đợi: mã lỗi 1004.
+
+     output
+    "code": "1004",
+    "message": "Parameter value is invalid"
+    
+▪Người dùng truyền một số điện thoại hợp lệ (đã hoàn tất signup
+nhưng hoàn tất bước này) và một tham số khác nhưng không truyền
+mã xác thực.
+▪Kết quả mong đợi: ứng dụng cần kiểm tra ngay phía mình để
+đảm bảo không gửi dữ liệu không chính xác. Thông báo cần
+hiển thị là thiếu mã xác thực. Trong trường hợp nếu yêu cầu này
+được gửi lên server thì mã lỗi là 1002
+    output
+    {
+    "code": "1002",
+    "message": "Parameter is not enough"
+}

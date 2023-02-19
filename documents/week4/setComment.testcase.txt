@@ -1,0 +1,106 @@
+/set_comment
+    1. Người dùng truyền đúng mã phiên đăng nhập, id bài viết, các chỉ số khác đúng. Hệ
+    thống không có bình luận mới nào mà ứng dụng chưa lấy về.
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), hiển thị ra bình luận mới nhất
+    của người dùng.
+    input:
+        token:
+        id:
+        comment:
+        count:
+        index:
+    output:
+        
+    "code": "1000",
+    "message": "OK",
+    "data": [
+        {
+            "id": "",
+            "comment": "",
+            "created": "",
+            "poster": {
+                "id": "",
+                "avatar": "
+            }
+        }
+    ]
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ), các thông số khác phù hợp.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    ***** nhu test case 3 cua change_info_after_signup
+
+    3. Người dùng truyền đúng các thông tin. Nhưng bài viết đã bị khóa (do vi phạm tiêu
+    chuẩn cộng đồng hoặc bị hạn chế tại quốc gia) trước khi gửi bình luận mới (trong lúc viết
+    bình luận thì bài viết vẫn có tồn tại)
+    Kết quả mong đợi: mã lỗi 1010 và bài viết bị biến mất trong trang hiện tại. Nếu là
+    trang chủ thì ứng dụng sẽ xóa bài viết đó. Nếu là trang cá nhân thì có thể xóa bài viết
+    đó hoặc làm mới lại trang cá nhân (tùy thuộc tình huống).
+    output:
+        code: 1010
+        message: Action ...
+    4. Người dùng truyền đúng các thông tin. Nhưng người dùng đã bị khóa tài khoản (do hệ
+    thống khóa đi mất).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    ***** nhu test case 3 cua change_info_after_signup
+    5. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham số khác.
+    Nhưng hệ thống không thể chèn thêm vào danh sách các bình luận (chẳng hạn CSDL
+    không truy cập được)
+    Kết quả mong đợi: mã lỗi báo hệ thống không thể xóa được do lỗi DB. Nhưng ở phía
+    ứng dụng, cần hiện thông báo khác, chẳng hạn “Không thể kết nối Internet”
+    6. Người dùng truyền đúng mã phiên đăng nhập, nhưng sai id bài viết (bài viết với id đó
+    không tồn tại).
+    Kết quả mong đợi: mã lỗi 9992 và báo bài viết không tồn tại.
+    output:
+        code: 9992
+        message: Post is not existed
+    7. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng đang kết nối thì
+    mạng Internet bị ngắt
+    Kết quả mong đợi: ứng dụng cần hiện thông báo “Không thể kết nối Internet” càng
+    sớm càng tốt
+    FE xu li
+    8. Người dùng truyền đúng các thông số. Và hệ thống có trả về thêm một số bình luận
+    mới nữa.
+    Kết quả mong đợi: ứng dụng cần hiển thị các bình luận còn lại, và các bình luận này
+    sẽ xuất hiện ở bên dưới, ứng dụng cần phải tự động cuộn xuống dưới bình luận cuối cùng.
+    output: 
+        hop li=> FE xu li
+    9. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham số khác.
+    Nhưng trong danh sách các bình luận mới (được API này trả về) có những người đang
+    chặn người dùng hoặc bị chính người dùng chặn
+    Kết quả mong đợi: server cần lọc ra và đếm danh sách các bình luận còn lại. Nếu
+    không có bình luận nào thì vẫn báo là bình luận thành công.
+    
+    output:
+        code: 1009
+        message: Not access 
+    10. Người dùng truyền đúng mã phiên đăng nhập, đúng id bài viết, và có nội dung bình
+    luận nhưng hai tham số còn lại bị sai (hoặc nội dung bình luận trống)
+    Kết quả mong đợi: ứng dụng cần phải tự kiểm tra trước khi gửi, nhưng nếu vì lý do
+    nào đó vẫn gửi lên được thì server cần trả về mã lỗi báo sai tham số, hệ thống giữ
+    nguyên việc hiển thị mà không báo cho người dùng biết
+    output:
+        code: 1004
+        message: PARAMETER_VALUE_IS_INVALID
+
+    11. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham số khác.
+    Nhưng trong quá trình đăng bình luận thì hệ thống nhận yêu cầu (của chủ bài viết) chặn người
+    dùng
+    Kết quả mong đợi: server báo về cho client. Ứng dụng phát hiện ra việc chặn, thực hiện ẩn
+    popup bình luận, xóa bài viết khỏi danh sách
+
+    output:
+        code: 1009
+        message: Not access ( giong tést case 9)
+    12. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham số khác.
+    Nhưng trong quá trình đăng bình luận thì hệ thống nhận yêu cầu (của một trong số những người
+    tham gia bình luận) chặn người dùng
+    Kết quả mong đợi: từ đấy trở đi, server không gửi về các bình luận của người chủ động
+    chặn. Bình luận khác (đã hiện ở client) vẫn tạm cho hiển thị nốt lần đó.
+    output:
+        ... get comment xu li
+    
+
+

@@ -1,0 +1,53 @@
+/set_accept_friend
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết.
+    input:
+        token
+        user_id
+        is_accept
+    output:
+        code: 1000
+        message: OK
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác hợp lệ
+    //middle xu li 
+    3. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác nhưng hệ
+    thống không thể thiết lập việc xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết
+    nối Internet”
+    //server unknown FE xu li
+    4. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    người dùng đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    Xem lại test case 3 của change_info_after_signup
+    /server middle xu li and FE xu li
+    5. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    không có tham số user_id hoặc tham số này có giá trị không chuẩn (có chứa các
+    ký tự đặc biệt).
+    Kết quả mong đợi: hệ thống báo lỗi về cho ứng dụng, tùy tình trạng mà ứng
+    dụng báo lên cho người dùng biết
+    output:
+        code:
+        message: params value is invalid
+    6. Người dùng truyền đúng các tham số nhưng tham số user_id không đúng
+    (không tồn tại người dùng muốn chấp thuận này hoặc người dùng này đã bị khóa
+    tài khoản)
+    Kết quả mong đợi: ứng dụng sẽ hiển thị thông báo người dùng không tồn tại.
+    output:
+        code:
+        message: ACTION_HAS_BEEN_DONE_PREVIOUSLY_BY_THIS_USER
+    7. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    người bạn này đã được chấp thuận (hoặc xóa bỏ yêu cầu) từ trước.
+    Kết quả mong đợi: ứng dụng nhận được mã lỗi, ứng dụng cần đưa ra thông
+    báo lỗi phù hợp.
+        
+    8. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    tham số is_accept không đúng chuẩn (không phải 0 hoặc 1).
+    Kết quả mong đợi: ứng dụng sẽ hiện thông báo lên cho người dùng.
+    11
+    Các test case cho set_accept_friend (5)
+    9. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    người bạn này chưa bao giờ gửi yêu cầu kết bạn, chỉ là một gợi ý kết bạn từ phía
+    server.
+    Kết quả mong đợi: hệ thống chấp nhận đây là một yêu cầu cần xóa đi

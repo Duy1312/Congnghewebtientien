@@ -1,0 +1,69 @@
+/like
+    1. Người dùng truyền đúng mã phiên đăng nhập, id bài viết
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), cơ sở dữ liệu trên phía server
+    sẽ có các cập nhật về danh sách like, còn phía ứng dụng sẽ có các cập nhật giao diện
+    cần thiết (đổi màu và đổi danh sách like).
+    input:
+        token: xx
+        id: xx
+    output:
+        code: 1000
+        message: OK
+        data: 
+            like: (so luong like hien tai)
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    *********** nhu test case 3 change_info_after_signup
+    3. Người dùng truyền đúng các thông tin. Nhưng bài viết đã bị khóa (do vi phạm tiêu
+    chuẩn cộng đồng hoặc bị hạn chế tại quốc gia) trước khi gửi báo cáo (trong lúc viết báo
+    cáo vẫn có tồn tại)
+    Kết quả mong đợi: mã lỗi 1010 và bài viết bị biến mất trong trang hiện tại. Nếu là
+    trang chủ thì ứng dụng sẽ xóa bài viết đó. Nếu là trang cá nhân thì có thể xóa bài viết
+    đó hoặc làm mới lại trang cá nhân (tùy thuộc tình huống).
+    input: 
+    output:
+        code: 1010
+        message: Action has been done previously by this user
+    4. Người dùng truyền đúng các thông tin. Nhưng người dùng đã bị khóa tài khoản (do hệ
+    thống khóa đi mất).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    **** nhu tes case 3 change_info_after_signup
+    5. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng hệ thống không thể
+    tiếp nhận báo cáo (chẳng hạn CSDL không truy cập được)
+    Kết quả mong đợi: mã lỗi báo hệ thống không thể xóa được do lỗi DB. Nhưng ở phía
+    ứng dụng, cần hiện thông báo khác, chẳng hạn “Không thể kết nối Internet”
+
+    input:
+    output:
+        code: unknown
+        message: unknown error
+    6. Người dùng truyền đúng mã phiên đăng nhập, nhưng sai id bài viết (bài viết với id đó
+    không tồn tại).
+    Kết quả mong đợi: mã lỗi 9992 và báo bài viết không tồn tại.
+
+    output: 
+        code: 9992
+        message: Post is not existed
+    7. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng đang kết nối thì
+    mạng Internet bị ngắt
+    Kết quả mong đợi: ứng dụng cần hiện thông báo “Không thể kết nối Internet” càng
+    sớm càng tốt
+    FE xu li
+    8. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng server trả về với số
+    lượng like bị lỗi (giá trị âm hoặc quá lớn hàng tỉ)
+    Kết quả mong đợi: ứng dụng cần thay đổi giao diện cho phù hợp với hành động của
+    người dùng lên trang. Số lượng like có thể hiển thị rằng “Bạn thích bài viết” (nếu hành
+    động like) hoặc không có ai like (nếu hành động là bỏ like)
+    FE xu li
+    9. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng server trả về với số
+    lượng like bị sai logic (chẳng hạn người dùng thực hiện thích nhưng số like trả về bằng 0)
+    Kết quả mong đợi: ứng dụng cần thay đổi giao diện cho phù hợp với hành động của
+    người dùng lên trang. Số lượng like có thể vẫn hiển thị rằng “Bạn thích bài viết” (nếu hành
+    động like) 
+    FE xu li
+
+
+

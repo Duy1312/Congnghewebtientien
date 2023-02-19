@@ -1,0 +1,101 @@
+/get_comment
+    1. Người dùng truyền đúng mã phiên đăng nhập, id bài viết, các chỉ số khác đúng
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), hiển thị ra danh sách các bình
+    luận.
+    input:
+        token:
+        id:
+        index: 
+        count:
+    output:
+        code:
+        message: OK
+        data:
+            id
+            comment
+            created
+            poster
+                id
+                name ? username
+                avatar
+            is_blocked
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    ****nhu test case 3 change_info_after_signup
+    3. Người dùng truyền đúng các thông tin. Nhưng bài viết đã bị khóa (do vi phạm tiêu
+    chuẩn cộng đồng hoặc bị hạn chế tại quốc gia) trước khi gửi yêu cầu (trong lúc gửi yêu cầu
+    xem bình luận thì bài viết vẫn có tồn tại)
+    Kết quả mong đợi: mã lỗi 1010 và bài viết bị biến mất trong trang hiện tại. Nếu là
+    trang chủ thì ứng dụng sẽ xóa bài viết đó. Nếu là trang cá nhân thì có thể xóa bài viết
+    đó hoặc làm mới lại trang cá nhân (tùy thuộc tình huống).
+    output:
+        code: 1010
+        message: Action
+    
+    4. Người dùng truyền đúng các thông tin. Nhưng người dùng đã bị khóa tài khoản (do hệ
+    thống khóa đi mất).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    ****nhu test case 3 change_info_after_signup
+    5. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham số khác.
+    Nhưng hệ thống không thể lấy thêm danh sách các bình luận (chẳng hạn CSDL không truy
+    cập được)
+    Kết quả mong đợi: mã lỗi báo hệ thống không thể xóa được do lỗi DB. Nhưng ở phía
+    ứng dụng, cần hiện thông báo khác, chẳng hạn “Không thể kết nối Internet”
+    output:
+        code: 1005
+        message: Unknown error
+    6. Người dùng truyền đúng mã phiên đăng nhập, nhưng sai id bài viết (bài viết với id đó
+    không tồn tại).
+    Kết quả mong đợi: mã lỗi 9992 và báo bài viết không tồn tại.
+    output: 
+        code: 1005
+        message: Post is not existed
+    7. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng đang kết nối thì
+    mạng Internet bị ngắt
+    Kết quả mong đợi: ứng dụng cần hiện thông báo “Không thể kết nối Internet” càng
+    sớm càng tốt
+    **********FE xu li
+    8. Người dùng truyền đúng các thông số. Nhưng hệ thống chỉ còn số bình luận ít hơn số
+    count.
+    Kết quả mong đợi: ứng dụng cần hiển thị các bình luận còn lại, nhưng chắc chắn
+    không còn bình luận nào thêm nữa, hệ thống sẽ không có câu “Tải thêm các bình luận…”
+    ********?????????????????
+    9. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham
+    số khác. Nhưng trong danh sách các bình luận có những người đang chặn người
+    dùng hoặc bị chính người dùng chặn
+    Kết quả mong đợi: server cần lọc ra và đếm danh sách các bình luận còn lại.
+    Nếu không có bình luận nào thì cần gửi mã lỗi 9994
+
+
+    ???????????????
+    10. Người dùng truyền đúng mã phiên đăng nhập, đúng id bài viết, nhưng hai
+    tham số còn lại bị sai
+    Kết quả mong đợi: mã lỗi báo sai tham số, hệ thống giữ nguyên việc hiển thị
+    mà không báo cho người dùng biết
+    input:
+        token 
+        id
+        index: null
+        count: null
+    output:
+        code: 1004
+        message: Parameter value is invalid
+    11. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham số khác.
+    Nhưng trong quá trình xem bình luận thì hệ thống nhận yêu cầu (của chủ bài viết) chặn người
+    dùng
+    Kết quả mong đợi: server báo về cho client. Ứng dụng phát hiện ra việc chặn, thực hiện ẩn
+    popup bình luận, xóa bài viết khỏi danh sách
+    output:
+        code: notaccess
+        message: notaccess
+    12. Người dùng truyền đúng mã phiên đăng nhập, id bài viết cũng như các tham số khác.
+    Nhưng trong quá trình xem bình luận thì hệ thống nhận yêu cầu (của một trong số những người
+    tham gia bình luận) chặn người dùng
+    Kết quả mong đợi: từ đấy trở đi, server không gửi về các bình luận của người chủ động
+    chặn. Bình luận khác (đã hiện ở client) vẫn tạm cho hiển thị nốt lần đó.
+    output:
+        code: notaccess
+        message: notaccess

@@ -1,0 +1,81 @@
+/get_list_videos 
+    1. Người dùng truyền đúng mã phiên đăng nhập, các tham số khác cũng đầy đủ
+    và đúng đắn
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết.
+      token
+     user_id 
+     inCampaign 0 /1
+     latitude 
+     longitude
+     last_id 
+     index
+     count
+    
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác đúng đắn.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    Xem lại test case 3 của change_info_after_signup
+    21
+    Các test case cho get_list_videos (2)
+    3. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Nhưng
+    không còn bài viết nào
+    Kết quả mong đợi: mã lỗi báo không còn dữ liệu nữa, nhưng ứng dụng không
+    hiển thị thông báo lỗi này, chỉ đơn giản thông báo người dùng có thể kết bạn
+    thêm.
+    4. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng người dùng
+    đã bị chặn (do hệ thống chặn).
+    Kết quả mong đợi: người dùng bị đăng xuất, ứng dụng sẽ phải đẩy người
+    dùng sang trang đăng nhập, tất cả các dữ liệu lưu trữ trước nếu có đều bị
+    xóa. 22
+    Các test case cho get_list_videos (3)
+    5. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng dữ liệu trả
+    về có trường nội dung bài viết bị lỗi
+    Kết quả mong đợi: ứng dụng không hiển thị những bài viết bị lỗi (sai định
+    dạng khiến không chuyển đổi). Nếu tất cả bài mới lấy về bị lỗi thì ứng dụng
+    hiển thị như thể không còn bài viết mới nào nữa.
+    6. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng dữ liệu trả
+    về có trường like hoặc comment hoặc is_liked bị lỗi.
+    Kết quả mong đợi: ứng dụng sẽ phải căn cứ dữ liệu trả về mà hiển thị được
+    các thông tin cần thiết. Các trường bị lỗi coi như nhận giá trị mặc định (bằng
+    0) 23
+    Các test case cho get_list_videos (4)
+    7. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Nhưng
+    dữ liệu trả về có trường can_comment thông báo bình luận bị khóa hoặc trường
+    can_comment bị lỗi về giá trị
+    Kết quả mong đợi: ứng dụng không hiển thị ô để nhập bình luận.
+    8. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Nhưng
+    dữ liệu trả về có trường author bị lỗi về id.
+    Kết quả mong đợi: ứng dụng không hiển thị bài viết có thông tin tác giả bị lỗi
+    về id. Các trường khác của author bị lỗi thì vẫn có thể nhận giá trị mặc định
+    để hiển thị bài viết
+    24
+    Các test case cho get_list_videos (5)
+    9. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Nhưng
+    dữ liệu trả về có trường described và trường video bị lỗi
+    Kết quả mong đợi: không hiển thị bài viết.
+    10. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    dữ liệu trả về có một trong hai trường described và trường video bị lỗi.
+    Kết quả mong đợi: ứng dụng vẫn hiển thị bài viết cho các trường thông tin
+    không bị lỗi. Các trường bị lỗi thì vẫn có thể nhận giá trị mặc định để hiển thị
+    bài viết
+    25
+    Các test case cho get_list_videos (6)
+    11. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác. Có bài
+    viết cần phải che đi video không thích hợp nhưng ứng dụng bị lỗi trong việc hiển
+    thị màn che
+    Kết quả mong đợi: phải bắt được sự kiện lỗi hiển thị màn che để cuối cùng là
+    xóa đi bài viết trong danh sách.
+    12. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác nhưng
+    tham số last_id bị lỗi (không có hoặc không đúng định dạng).
+    Kết quả mong đợi: mã lỗi sai giá trị dữ liệu của tham số. Ứng dụng không
+    nhận được thêm danh sách nào cả.
+    26
+    Các test case cho get_list_videos (7)
+    13. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác nhưng
+    tham số index hoặc count bị lỗi (không có hoặc không đúng định dạng).
+    Kết quả mong đợi: mã lỗi sai giá trị dữ liệu của tham số. Ứng dụng không
+    nhận được thêm danh sách nào cả.
+    14. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác nhưng
+    các tham số tọa độ bị lỗi (không có hoặc không đúng định dạng).
+    Kết quả mong đợi: server sử dụng lại tham số lần gần nhất.

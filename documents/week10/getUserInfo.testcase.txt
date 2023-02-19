@@ -1,0 +1,58 @@
+/get_user_info
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết.
+    input:
+        token
+        user_id:
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    //middle xu li
+    3. Người dùng truyền đúng mã phiên đăng nhập nhưng hệ thống không thể thiết lập việc
+    xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết nối
+    Internet”
+    //server unknown FE xu li 
+    4. Người dùng truyền đúng mã phiên đăng nhập. Nhưng người dùng đã bị khóa tài khoản
+    (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    //middle xu li 
+    5. Người dùng truyền đúng mã phiên đăng nhập, nhưng tham số user_id không tồn tại
+    (hoặc đã bị khóa) - không phải là id của người chủ tài khoản.
+    Kết quả mong đợi: Ứng dụng nhận được thông báo về tài khoản không tồn tại.
+        code
+        message: User is not vadidated
+    6. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống trả về có không có username hoặc id.
+    Kết quả mong đợi: ứng dụng coi như đó là lỗi và thông báo về tài khoản không tồn
+    tại.
+    // Fe xu li 
+    7. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ
+    nhưng hệ thống phát hiện rằng người dùng này đã chặn người chủ tài khoản.
+    Kết quả mong đợi: Ứng dụng nhận được thông báo về tài khoản không tồn
+    tại.
+        code
+        message: User is not vadidated
+    8. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ
+    nhưng hệ thống trả về có không có mô tả.
+    Kết quả mong đợi: ứng dụng coi như người dùng đó không có thông tin mô
+    tả.
+    // FE xu li 
+    9. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống trả về không có (hoặc sai định dạng) created, avatar, cover_image, link, address,
+    country, listing, is_friend, online.
+    Kết quả mong đợi: Ứng dụng coi như người dùng không có các thông tin kia và tự
+    gán giá trị mặc định.
+    // Fe xu li 
+    10. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống trả về đa số đúng định dạng trừ việc không có (hoặc sai định dạng) một trong ba
+    trường country/address/city.
+    Kết quả mong đợi: Ứng dụng coi như người dùng không có các thông tin kia và tự
+    gán giá trị mặc định.
+    // FE xu li 
+    Kết quả mong đợi: Ứng dụng coi như việc thiếu (hoặc sai định dạng)
+    một trường cấp cao sẽ khiến các trường cấp thấp bị mất ý nghĩa.
+    Trường cao nhất là country, kế đến city và cuối cùng là address.
+    Hệ thống không bắt buộc phải lấy danh sách các quốc gia/tỉnh/thành
+    theo đúng danh sách trên thực tế (nhóm SV làm thì càng tốt).

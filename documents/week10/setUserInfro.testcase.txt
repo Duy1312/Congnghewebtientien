@@ -1,0 +1,66 @@
+/set_user_info
+
+username, description, address, city, country, link 
+
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết. Nếu có cập nhật avatar thì sẽ lưu lại đường dẫn.
+
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    // middle xu li 
+    3. Người dùng truyền đúng mã phiên đăng nhập nhưng hệ thống không thể thiết lập việc
+    xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết nối
+    Internet”
+    output:
+        code
+        message: unknown
+    4. Người dùng truyền đúng mã phiên đăng nhập. Nhưng người dùng đã bị khóa tài khoản
+    (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+   // middle xu li 
+    5. Người dùng truyền đúng mã phiên đăng nhập, nhưng tham số user_name bị sai định
+    dạng (bị trống hoặc có chứa con số hoặc ký tự đặc biệt khác underscore, hoặc có ký tự đặc
+    biệt ở đầu tiên hoặc quá dài).
+    Kết quả mong đợi: Ứng dụng cố gắng tự bắt lỗi này trước khi gửi. Nếu lỡ gửi thì ứng
+    dụng hiển thị thông báo phù hợp về lỗi này cho người dùng
+    code:
+    message: params value is invalid
+    6. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ user_name
+    không phải xâu chuẩn.
+    Kết quả mong đợi: ứng dụng tự chuẩn hóa xâu trước khi gửi lên. Khi cập nhật thành
+    công (phía server) thì ứng dụng cũng chỉ hiện xâu chuẩn.
+    // Fe xu li 
+    7. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống phát hiện rằng đất nước của người dùng không được hỗ trợ bởi hệ thống (chẳng hạn
+    Bắc Triều Tiên - North Korea/NorthKorea).
+    Kết quả mong đợi: Ứng dụng nhận được thông báo sao cho đăng xuất.
+    /?/??????????????/
+    8. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng
+    trường description quá dài (hơn 150 ký tự).
+    Kết quả mong đợi: Ứng dụng cố gắng tự bắt lỗi này trước khi gửi. Nếu lỡ gửi thì ứng
+    dụng hiển thị thông báo phù hợp về lỗi này cho người dùng
+    code:
+    message: params value is invalid
+    9. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ (có cả
+    avatar và/hoặc cover_image và/hoặc link) nhưng hệ thống trả về không có đường dẫn của
+    các trường đó.
+    Kết quả mong đợi: Ứng dụng coi như người dùng không chỉnh sửa các thông tin kia
+    và tự gán giá trị mặc định.
+    // FE xu li 
+    10. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ nhưng hệ
+    thống phát hiện đường dẫn liên kết là đường dẫn bị cấm (để ví dụ, ta chọn trang
+    vnhackers.com).
+    Kết quả mong đợi: hệ thống phải chặn các trang bị cấm, báo cho ứng dụng và ứng
+    dụng có cách hiển thị phù hợp.
+   // k cho update link
+    11. Người dùng truyền đúng mã phiên đăng nhập, và các tham số khác đầy đủ (có cả city
+    và/hoặc country) nhưng hệ thống trả về không có các trường đó.
+    Kết quả mong đợi: Ứng dụng coi như người dùng không chỉnh sửa các thông tin kia
+    và tự gán giá trị mặc định. 
+    // FE xu li 

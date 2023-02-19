@@ -1,0 +1,125 @@
+/login (input in query params)
+POST
+    1. Người dùng nhập số điện thoại vốn là số đã được đăng ký trên hệ thống. Nhập đúng
+    mật khẩu và xâu không trùng với số điện thoại, không chứa ký tự đặc biệt, thiết bị
+    cũng gửi đúng mã devtoken (device ID).
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công) và ứng dụng sẽ chuyển sang
+    màn hình trang chủ. Chú ý, nếu ĐÃ đăng nhập trên máy khác thì (nếu chức năng push
+    hoàn thành và máy khác có mạng) máy khác sẽ bị đăng xuất.
+    Mã token được lưu trữ ở cả client và server
+    input:
+        phonenumber: 0945524200
+        password: 123456
+    output:
+        code: 1000
+        message: OK
+        data: {
+            id: 
+            token:
+            avatar: 
+        }
+    2. Người dùng nhập số điện thoại vốn là số CHƯA được đăng ký trên hệ thống. Nhập
+    mật khẩu đúng định dạng và có mã devtoken hợp lệ
+    Kết quả mong đợi: 9995/ User is not validated
+    input: 
+        phonenumber: 0945524201
+        password: 123456
+    output: 
+        code: 9995
+        message: User is not validated
+        
+    3. Người dùng nhập số điện thoại không đúng định dạng (không đủ số hoặc thừa số hoặc
+    không có số 0 ở đầu tiên) và nhập mật khẩu đúng quy định, devtoken hợp lệ.
+    Kết quả mong đợi: ứng dụng kiểm tra ngay và đưa ra thông báo sai định dạng của số
+    điện thoại. Kể cả khi không có mạng Internet thì ứng dụng vẫn kiểm tra và đưa thông báo.
+    input: (query params)
+        phonenumber: 094552420 (không đủ số)
+        password: 123456
+
+        phonenumber: 094552420000 (thừa số)
+        password: 123456
+
+        phonenumber: 945524200 (không có số không ở đầu)
+        password: 123456
+
+        phonenumber: 0945524200a (chứa kí tự không phải chữ số)
+        password: 123456
+    output: 
+        code: 1004
+        message: Parameter value is invalid
+        
+    4. Người dùng nhập đúng định dạng của số điện thoại nhưng mật khẩu không đúng định
+    dạng (quá ngắn hoặc quá dài hoặc chứa ký tự đặc biệt hoặc trùng với số điện thoại),
+    devtoken hợp lệ. Ứng dụng cần phải kiểm tra ngay trước khi gửi dữ liệu lên server
+    Kết quả mong đợi: ứng dụng kiểm tra ngay và đưa ra thông báo sai định dạng của mật
+    khẩu. Kể cả khi không có mạng Internet thì ứng dụng vẫn kiểm tra và đưa thông báo.
+    input: (query params)
+    
+        phonenumber: 0945524200
+        password: 12345 (quá ngắn)
+
+        phonenumber: 0945524200
+        password: 12345678901 (quá dài)
+
+        phonenumber: 0945524200
+        password: 123456@(chứa kí tự đặc biệt)
+    output: 
+        code: 1004
+        message: Parameter value is invalid
+    5. Người dùng bỏ qua không nhập cả số điện thoại và mật khẩu nhưng nhấn vào nút “Đăng
+    nhập” (hoặc “Log in” tùy vào giao diện ứng dụng).
+    Kết quả mong đợi: ứng dụng kiểm tra ngay và đưa ra thông báo sai định dạng của số
+    điện thoại. Kể cả khi không có mạng Internet thì ứng dụng vẫn kiểm tra và đưa thông báo. 
+     input: (query params)
+        phonenumber: (null)
+        password: (null)
+    output: 
+        code: 1004
+        message: Parameter value is invalid
+    6. Người dùng nhập đúng định dạng của số điện thoại và mật khẩu, devtoken hợp lệ nhưng
+    không có kết nối mạng.
+    Kết quả mong đợi: Ứng dụng cần phải đưa ra thông báo càng sớm càng tốt về việc
+    “Không thể kết nối Internet”. Mẹo: Kể cả khi có kết nối mạng Internet nhưng server không
+    trả về kết quả hoặc kết quả không đúng định dạng JSON thì vẫn thông báo là “Không thể
+    kết nối Internet”.
+    FE xử lý
+    7. Người dùng nhập số điện thoại và mật khẩu có nội dung giống số điện thoại rồi nhấn
+    vào nút “Đăng nhập” (hoặc “Log in” tùy vào giao diện ứng dụng), devtoken hợp lệ.
+    Kết quả mong đợi: ứng dụng kiểm tra ngay và đưa ra thông báo “Mật khẩu sai định
+    dạng”. Kể cả khi không có mạng Internet thì ứng dụng vẫn kiểm tra và đưa thông báo. 
+    input
+        phonenumber: 0945524200
+        password: 0945524200 (trùng với số điện thoại)
+    output: 
+        code: 1004
+        message: Parameter value is invalid
+    8. Người dùng đăng nhập thành công trên máy A. Rồi đăng nhập thành công trên máy B.
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công) và token cũ (của lần đăng nhập
+    trên máy A) sẽ bị xóa đi bên phía server.
+    input A:
+        phonenumber: 0945524200
+        password: 123456
+    output: 
+        code: 1000
+        message: OK
+        data: {
+            id
+            token
+            avatar
+        }
+    input B:
+        phonenumber: 0945524200
+        password: 123456
+    output: 
+        code: 1000
+        message: OK
+        data: {
+            id  (giống A)
+            token (khác token A)
+            avatar (giống A)
+        }
+    9. Ứng dụng gửi thông tin đăng nhập nhưng không gửi devtoken.
+    Kết quả mong đợi: Ứng dụng phải tự kiểm tra nhưng nếu lỡ gửi lên thì server phải về
+    thông báo lỗi thiếu tham số.
+    Dev: Chưa hiểu ý nghĩa devtoken
+

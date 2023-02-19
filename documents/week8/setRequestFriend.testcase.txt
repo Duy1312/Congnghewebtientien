@@ -1,0 +1,62 @@
+/set_request_friend
+    1. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các
+    thông tin cần thiết.
+    input: 
+        token
+        user_id
+    output:
+        code: 1000
+        message: OK
+
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc
+    mã phiên đăng nhập cũ) còn các tham số khác hợp lệ.
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    // middle xu li 
+    3. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác nhưng hệ
+    thống không thể thiết lập việc xử lý yêu cầu (do lỗi truy cập CSDL chẳng hạn)
+    Kết quả mong đợi: thông báo cho người dùng, chẳng hạn như “Không thể kết
+    nối Internet”
+    // Fe xu li 
+    // code: 
+     message: unknown 
+    4. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác. Nhưng
+    người dùng đã bị khóa tài khoản (do hệ thống khóa đi).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập.
+    // middle xu li 
+    5. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    không có người dùng nào có user_id như tham số yêu cầu.
+    Kết quả mong đợi: hệ thống báo lỗi về cho ứng dụng, tùy tình trạng mà ứng
+    dụng báo lên cho người dùng biết
+    // code:
+    message: action...
+
+    6. Người dùng truyền đúng các tham số, hệ thống trả về đúng kết quả, nhưng
+    user_id là của chính người chủ tài khoản.
+    Kết quả mong đợi: Ứng dụng phải cố gắng tự loại bỏ trường hợp này. Nếu lỡ
+    truyền lên server thì hệ thống phải báo lỗi về cho ứng dụng, tùy tình trạng mà ứng
+    dụng báo lên cho người dùng biết.
+    //code: 
+    message: params value is invalid
+    7. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng hệ
+    thống trả về giá trị requested_friends không đúng định dạng (không phải số hoặc
+    giá trị âm).
+    Kết quả mong đợi: ứng dụng coi như số bạn chung đó là 0.
+    // FE xu li 
+    8. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng hệ
+    thống trả về giá trị requested_friends lớn hơn giá trị cực đại số bạn mà một người
+    dùng có thể sở hữu.
+    Kết quả mong đợi: ứng dụng coi như vẫn chấp nhận con số đó.
+    // FE xu li 
+    9. Người dùng truyền đúng mã phiên đăng nhập và các tham số khác, nhưng
+    lúc hệ thống kiểm tra thì người dùng đã có đủ số lượng bạn tối đa.
+    Kết quả mong đợi: hệ thống trả về lỗi 9994, ứng dụng tùy tình hình mà hiển
+    thị thông báo cho người dùng.
+    // code: 9994
+    message: no data...
+    10. Người dùng truyền đúng mã phiên đăng nhập và tham số khác, nhưng trước
+    đó đã gửi yêu cầu kết bạn rồi.
+    Kết quả mong đợi: hệ thống coi như người dùng muốn hủy yêu cầu kết bạn
+    đã gửi từ trước và trả về kết quả. Ứng dụng căn cứ tình hình mà hiển thị
+    code: 1000
+    message: OK

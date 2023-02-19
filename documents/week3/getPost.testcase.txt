@@ -1,0 +1,78 @@
+/get_post
+    1. Người dùng truyền đúng mã phiên đăng nhập, id bài viết
+    Kết quả mong đợi: 1000 | OK (Thông báo thành công), gửi cho ứng dụng các thông
+    tin cần thiết.
+    input: 
+        token: xxx
+        id: xxx (hợp lệ)
+    out:
+        ...
+    2. Người dùng gửi sai mã phiên đăng nhập (mã bị trống hoặc quá ngắn hoặc mã phiên
+    đăng nhập cũ).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang đăng nhập. Xem lại
+    test case 3 của change_info_after_signup
+    input:
+        token: xx (không hợp lệ)
+        id: xxx
+    output: 
+        code: 1004
+        message: "Parameter value is invalid"
+    3. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng bài viết đã bị khóa
+    (do vi phạm tiêu chuẩn cộng đồng hoặc bị hạn chế tại quốc gia)
+    Kết quả mong đợi: mã lỗi 9992 và quay lại màn hình trước đó hoặc không chuyển
+    sang trang hiển thị bài viết.
+    input: 
+        token: xxx
+        id: (đúng nhưng vi phạm tiêu chuẩn cộng đồng)
+    output:
+        code: 9992
+        message: Post is not existed
+    4. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng người dùng đã bị
+    chặn (do người viết bài chặn).
+    Kết quả mong đợi: ứng dụng sẽ phải đẩy người dùng sang trang trước đó. Khi ấy hầu
+    hết các trường sẽ bị trống nhưng trường is_blocked sẽ bằng 1.
+    input: 
+        token: xxx
+        id: hợp lệ
+    output:
+        code: 1000
+        message: OK
+        data:{
+            ...: null
+            is_blocked: 1
+        }
+    5. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng dữ liệu trả về có
+    trường nội dung bài viết bị lỗi
+    Kết quả mong đợi: ứng dụng không hiển thị bài viết, mà quay lại màn hình trước đó
+    hoặc không chuyển sang trang hiển thị bài viết.
+    FE xử lí
+    6. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng dữ liệu trả về có
+    trường like hoặc comment hoặc is_liked bị lỗi.
+    Kết quả mong đợi: ứng dụng sẽ phải căn cứ dữ liệu trả về mà hiển thị được các thông
+    tin cần thiết.
+    FE xử lí
+    7. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng dữ liệu trả về có
+    trường can_comment thông báo bình luận bị khóa hoặc trường can_comment bị lỗi về giá
+    trị
+    Kết quả mong đợi: ứng dụng không hiển thị ô để nhập bình luận.
+    FE xử lí
+    8. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng dữ liệu trả về có
+    trường author bị lỗi về id.
+    Kết quả mong đợi: ứng dụng không hiển thị bài viết, mà quay lại màn hình trước đó
+    hoặc không chuyển sang trang hiển thị bài viết.
+    FE xư lí
+    9. Người dùng truyền đúng mã phiên đăng nhập, id bài viết. Nhưng dữ liệu trả về có
+    trường author bị lỗi về tên hoặc avatar hoặc online.
+    Kết quả mong đợi: ứng dụng sẽ phải căn cứ dữ liệu trả về mà hiển thị được các thông
+    tin cần thiết. Tên sẽ là “Người dùng”, avatar sẽ là mặc định, coi như người dùng
+    không online
+    FE xử lí
+    10. Người dùng truyền đúng mã phiên đăng nhập, nhưng id bài viết bị sai
+    Kết quả mong đợi: ứng dụng không hiển thị bài viết, mà quay lại màn hình trước đó
+    hoặc không chuyển sang trang hiển thị bài viết.
+    input: 
+        token: xxx
+        id: (sai)
+    output:
+        code: 9992
+        message: Post is not existed
